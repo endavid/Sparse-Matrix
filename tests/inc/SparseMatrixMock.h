@@ -132,19 +132,4 @@
 
 	};
 
-
-	template<typename T>
-	bool operator == (const Sparse::SparseMatrix<T> & sparse, const std::vector<std::vector<T> > & classical)
-	{
-		for (int i = 0, rows = classical.size(); i < rows; i++) {
-			for (int j = 0, cols = classical[i].size(); j < cols; j++) {
-				if (sparse.get(i + 1, j + 1) != classical[i][j]) {
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
 #endif

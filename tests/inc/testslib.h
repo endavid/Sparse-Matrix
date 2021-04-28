@@ -17,6 +17,9 @@
 	#include <iostream>
 	#include <typeinfo>
 	#include <exception>
+    #include "helpers.h"
+    #include "../../src/SparseMatrix/SparseMatrix.h"
+
 
 
 	class FailureException : public std::exception
@@ -46,6 +49,20 @@
 
     void assertException(const char * exceptionClass, void (*callback)(void));
 
+    template<typename T>
+    bool operator == (const Sparse::SparseMatrix<T> & sparse, const std::vector<std::vector<T> > & classical)
+    {
+        for (int i = 0, rows = classical.size(); i < rows; i++) {
+            for (int j = 0, cols = classical[i].size(); j < cols; j++) {
+                if (sparse.get(i + 1, j + 1) != classical[i][j]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
 	template<typename T>
 	void assertEquals(const T & a, const T & b, const char * message = NULL)
 	{
@@ -58,7 +75,7 @@
 				oss << message << std::endl;
 			}
 
-			//oss << a << std::endl << "expected, but" << std::endl << b << " given";
+			oss << a << std::endl << "expected, but" << std::endl << b << " given";
 			throw FailureException(oss.str());
 		}
 	}
@@ -66,7 +83,7 @@
 
 	template<typename X, typename Y>
 	void assertEquals(const X & a, const Y & b, const char * message = NULL)
-	{/*
+	{
 		if (!(a == b)) {
 			std::ostringstream oss;
 			if (message == NULL) {
@@ -78,7 +95,8 @@
 
 			oss << a << std::endl << "expected, but" << std::endl << b << " given";
 			throw FailureException(oss.str());
-		}*/
+		}
 	}
+
 
 #endif

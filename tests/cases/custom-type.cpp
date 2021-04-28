@@ -10,7 +10,6 @@
 #include <vector>
 #include <iostream>
 #include "../inc/testslib.h"
-#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 

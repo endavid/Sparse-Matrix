@@ -8,7 +8,6 @@
 
 #include "../inc/testslib.h"
 #include "../inc/helpers.h"
-#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
@@ -54,8 +53,6 @@ void testAdditionFail3(void)
 	std::cout << "add() fail #3..." << std::flush;
 	assertException("InvalidDimensionsException", _additionFail3);
 	std::cout << " OK" << std::endl;
-    std::vector<int> v {1, 3, 5};
-    std::cout << v << std::endl;
 }
 
 

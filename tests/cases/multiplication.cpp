@@ -8,7 +8,6 @@
 
 #include "../inc/testslib.h"
 #include "../inc/helpers.h"
-#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
