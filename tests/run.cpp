@@ -12,16 +12,28 @@
 #include "inc/testslib.h"
 #include "inc/helpers.h"
 
-#include "../src/SparseMatrix/SparseMatrix.cpp"
-#include "cases/constructor.cpp"
-#include "cases/values.cpp"
-#include "cases/multiplication.cpp"
-#include "cases/addition.cpp"
-#include "cases/subtraction.cpp"
-#include "cases/crs-format.cpp"
-#include "cases/output.cpp"
-#include "cases/custom-type.cpp"
-
+void testConstructorFail1();
+void testConstructorFail2();
+void testConstructorFail3();
+void testConstructorFail4();
+void testGetFail();
+void testSetFail();
+void testMultiplicationFail1();
+void testMultiplicationFail2();
+void testAdditionFail1();
+void testAdditionFail2();
+void testAdditionFail3();
+void testSubtractionFail1();
+void testSubtractionFail2();
+void testSubtractionFail3();
+void testGettersAndSetters();
+void testInternalStorage();
+void testOutput();
+void testVectorMultiplication();
+void testMatricesMultiplication();
+void testAddition();
+void testSubtraction();
+void testElementTypes();
 
 int main(int argc, char ** argv)
 {

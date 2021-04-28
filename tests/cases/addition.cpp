@@ -7,12 +7,14 @@
  */
 
 #include "../inc/testslib.h"
+#include "../inc/helpers.h"
+#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
 void _additionFail1(void)
 {
-	SparseMatrix::SparseMatrix<int> a(3, 4), b(3, 5);
+	Sparse::SparseMatrix<int> a(3, 4), b(3, 5);
 	a.add(b);
 }
 
@@ -27,7 +29,7 @@ void testAdditionFail1(void)
 
 void _additionFail2(void)
 {
-	SparseMatrix::SparseMatrix<int> a(3, 4), b(4, 4);
+	Sparse::SparseMatrix<int> a(3, 4), b(4, 4);
 	a.add(b);
 }
 
@@ -42,7 +44,7 @@ void testAdditionFail2(void)
 
 void _additionFail3(void)
 {
-	SparseMatrix::SparseMatrix<int> a(3, 4), b(4, 5);
+	Sparse::SparseMatrix<int> a(3, 4), b(4, 5);
 	a.add(b);
 }
 
@@ -52,6 +54,8 @@ void testAdditionFail3(void)
 	std::cout << "add() fail #3..." << std::flush;
 	assertException("InvalidDimensionsException", _additionFail3);
 	std::cout << " OK" << std::endl;
+    std::vector<int> v {1, 3, 5};
+    std::cout << v << std::endl;
 }
 
 
@@ -74,14 +78,14 @@ void testAddition(void)
 		std::vector<std::vector<int> > manualResult = addMatrices(classicMatrixA, classicMatrixB);
 
 		// method
-		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
+		assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA.add(sparseMatrixB),
 			manualResult,
 			"Incorrect matrices addition"
 		);
 
 		// operator
-		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
+		assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA + sparseMatrixB,
 			manualResult,
 			"Incorrect matrices addition (operator +)"

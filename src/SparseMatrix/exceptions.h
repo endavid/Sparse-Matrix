@@ -13,7 +13,7 @@
 	#include <exception>
 
 
-	namespace SparseMatrix
+	namespace Sparse
 	{
 
 		class Exception : public std::exception

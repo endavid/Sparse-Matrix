@@ -7,12 +7,13 @@
  */
 
 #include "../inc/testslib.h"
+#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
 void _constructorFail1(void)
 {
-	SparseMatrix::SparseMatrix<int>(0);
+	Sparse::SparseMatrix<int>(0);
 }
 
 
@@ -26,7 +27,7 @@ void testConstructorFail1(void)
 
 void _constructorFail2(void)
 {
-	SparseMatrix::SparseMatrix<int>(0, 1);
+	Sparse::SparseMatrix<int>(0, 1);
 }
 
 
@@ -40,7 +41,7 @@ void testConstructorFail2(void)
 
 void _constructorFail3(void)
 {
-	SparseMatrix::SparseMatrix<int>(1, 0);
+	Sparse::SparseMatrix<int>(1, 0);
 }
 
 
@@ -54,7 +55,7 @@ void testConstructorFail3(void)
 
 void _constructorFail4(void)
 {
-	SparseMatrix::SparseMatrix<int>(0, 0);
+	Sparse::SparseMatrix<int>(0, 0);
 }
 
 

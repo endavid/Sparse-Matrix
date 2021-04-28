@@ -20,16 +20,16 @@
 	 * @internal
 	 */
 	template <typename T>
-	class SparseMatrixMock : public SparseMatrix::SparseMatrix<T>
+	class SparseMatrixMock : public Sparse::SparseMatrix<T>
 	{
 
 		public:
 
-			SparseMatrixMock(int n) : SparseMatrix::SparseMatrix<T>(n)
+			SparseMatrixMock(int n) : Sparse::SparseMatrix<T>(n)
 			{}
 
 
-			SparseMatrixMock(int rows, int columns) : SparseMatrix::SparseMatrix<T>(rows, columns)
+			SparseMatrixMock(int rows, int columns) : Sparse::SparseMatrix<T>(rows, columns)
 			{}
 
 
@@ -134,7 +134,7 @@
 
 
 	template<typename T>
-	bool operator == (const SparseMatrix::SparseMatrix<T> & sparse, const std::vector<std::vector<T> > & classical)
+	bool operator == (const Sparse::SparseMatrix<T> & sparse, const std::vector<std::vector<T> > & classical)
 	{
 		for (int i = 0, rows = classical.size(); i < rows; i++) {
 			for (int j = 0, cols = classical[i].size(); j < cols; j++) {

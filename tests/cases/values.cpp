@@ -7,12 +7,13 @@
  */
 
 #include "../inc/testslib.h"
+#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
 void _getFail(void)
 {
-	SparseMatrix::SparseMatrix<int> m(1, 1);
+	Sparse::SparseMatrix<int> m(1, 1);
 	m.get(2, 1);
 }
 
@@ -27,7 +28,7 @@ void testGetFail(void)
 
 void _setFail(void)
 {
-	SparseMatrix::SparseMatrix<int> m(3, 4);
+	Sparse::SparseMatrix<int> m(3, 4);
 	m.set(-1, 4, 0);
 }
 
@@ -44,7 +45,7 @@ void testGettersAndSetters(void)
 {
 	std::cout << "getters/setters..." << std::flush;
 
-	SparseMatrix::SparseMatrix<int> m(3);
+	Sparse::SparseMatrix<int> m(3);
 	for (int i = 1; i <= 3; i++) {
 		for (int j = 1; j <= 3; j++) {
 			assertEquals<int>(0, m.get(i, j));

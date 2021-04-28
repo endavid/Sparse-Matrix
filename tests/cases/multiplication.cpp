@@ -7,12 +7,14 @@
  */
 
 #include "../inc/testslib.h"
+#include "../inc/helpers.h"
+#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
 void _multiplicationFail1(void)
 {
-	SparseMatrix::SparseMatrix<int> m(3, 4);
+	Sparse::SparseMatrix<int> m(3, 4);
 	std::vector<int> x(3, 1);
 	m.multiply(x);
 }
@@ -28,7 +30,7 @@ void testMultiplicationFail1(void)
 
 void _multiplicationFail2(void)
 {
-	SparseMatrix::SparseMatrix<int> a(3, 4), b(5, 6);
+	Sparse::SparseMatrix<int> a(3, 4), b(5, 6);
 	a.multiply(b);
 }
 
@@ -89,14 +91,14 @@ void testMatricesMultiplication(void)
 		std::vector<std::vector<int> > manualResult = multiplyMatrices(classicMatrixA, classicMatrixB);
 
 		// method
-		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
+		assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA.multiply(sparseMatrixB),
 			manualResult,
 			"Incorrect matrices multiplication"
 		);
 
 		// operator
-		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
+		assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA * sparseMatrixB,
 			manualResult,
 			"Incorrect matrices multiplication (operator *)"

@@ -10,6 +10,7 @@
 #include <vector>
 #include <iostream>
 #include "../inc/testslib.h"
+#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
@@ -87,28 +88,28 @@ void testElementTypes(void)
 
 	// addition
 
-	SparseMatrix::SparseMatrix<person> a(4, 5);
+	Sparse::SparseMatrix<person> a(4, 5);
 	a.set(person("John", "Doe"), 3, 2);
 
-	SparseMatrix::SparseMatrix<person> b(4, 5);
+	Sparse::SparseMatrix<person> b(4, 5);
 	b.set(person("Foo", "Bar"), 3, 2);
 
-	SparseMatrix::SparseMatrix<person> sum = a.add(b);
+	Sparse::SparseMatrix<person> sum = a.add(b);
 	assertEquals<person>(person("John Foo", "Doe Bar"), sum.get(3, 2));
 
 
 	// subtraction
 
-	SparseMatrix::SparseMatrix<person> diff = a.subtract(b);
+	Sparse::SparseMatrix<person> diff = a.subtract(b);
 	assertEquals<person>(person("Bar", "Doe"), diff.get(3, 2));
 
 
 	// matrix-matrix multiplication
 
-	SparseMatrix::SparseMatrix<person> c(5, 3);
+	Sparse::SparseMatrix<person> c(5, 3);
 	c.set(person("Foo", "Bar"), 2, 3);
 
-	SparseMatrix::SparseMatrix<person> product = a.multiply(c);
+	Sparse::SparseMatrix<person> product = a.multiply(c);
 
 	for (int i = 1, rows = product.getRowCount(); i <= rows; i++) {
 		for (int j = 1, cols = product.getColumnCount(); j <= cols; j++) {

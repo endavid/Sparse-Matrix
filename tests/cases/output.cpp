@@ -7,6 +7,7 @@
  */
 
 #include "../inc/testslib.h"
+#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
@@ -17,7 +18,7 @@ void testOutput(void)
 	std::ostringstream oss;
 	std::string output;
 
-	SparseMatrix::SparseMatrix<int> m(3, 3);
+	Sparse::SparseMatrix<int> m(3, 3);
 	oss << m;
 	assertEquals<std::string>("0 0 0\n0 0 0\n0 0 0", oss.str());
 

@@ -7,12 +7,14 @@
  */
 
 #include "../inc/testslib.h"
+#include "../inc/helpers.h"
+#include "../../src/SparseMatrix/SparseMatrix.h"
 #include "../inc/SparseMatrixMock.h"
 
 
 void _subtractionFail1(void)
 {
-	SparseMatrix::SparseMatrix<int> a(3, 4), b(3, 5);
+	Sparse::SparseMatrix<int> a(3, 4), b(3, 5);
 	a.subtract(b);
 }
 
@@ -27,7 +29,7 @@ void testSubtractionFail1(void)
 
 void _subtractionFail2(void)
 {
-	SparseMatrix::SparseMatrix<int> a(3, 4), b(4, 4);
+	Sparse::SparseMatrix<int> a(3, 4), b(4, 4);
 	a.subtract(b);
 }
 
@@ -42,7 +44,7 @@ void testSubtractionFail2(void)
 
 void _subtractionFail3(void)
 {
-	SparseMatrix::SparseMatrix<int> a(3, 4), b(4, 5);
+	Sparse::SparseMatrix<int> a(3, 4), b(4, 5);
 	a.subtract(b);
 }
 
@@ -74,14 +76,14 @@ void testSubtraction(void)
 		std::vector<std::vector<int> > manualResult = subtractMatrices(classicMatrixA, classicMatrixB);
 
 		// method
-		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
+		assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA.subtract(sparseMatrixB),
 			manualResult,
 			"Incorrect matrices subtract"
 		);
 
 		// operator
-		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
+		assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA - sparseMatrixB,
 			manualResult,
 			"Incorrect matrices subtract (operator -)"
