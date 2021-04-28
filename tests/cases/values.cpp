@@ -45,14 +45,14 @@ void testGettersAndSetters(void)
 	std::cout << "getters/setters..." << std::flush;
 
 	Sparse::SparseMatrix<int> m(3);
-	for (int i = 1; i <= 3; i++) {
-		for (int j = 1; j <= 3; j++) {
+	for (size_t i = 0; i < 3; i++) {
+		for (size_t j = 0; j < 3; j++) {
 			assertEquals<int>(0, m.get(i, j));
 		}
 	}
 
-	m.set(-4, 1, 3);
-	assertEquals<int>(-4, m.get(1, 3));
+	m.set(-4, 0, 2);
+	assertEquals<int>(-4, m.get(0, 2));
 
 	std::cout << " OK" << std::endl;
 }

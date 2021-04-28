@@ -54,7 +54,7 @@
     {
         for (size_t i = 0, rows = classical.size(); i < rows; i++) {
             for (size_t j = 0, cols = classical[i].size(); j < cols; j++) {
-                if (sparse.get(i + 1, j + 1) != classical[i][j]) {
+                if (sparse.get(i, j) != classical[i][j]) {
                     return false;
                 }
             }

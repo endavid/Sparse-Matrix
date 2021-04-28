@@ -122,7 +122,7 @@
 
 				for (size_t i = 0, len = vec.size(); i < len; i++) {
 					for (size_t j = 0, len = vec[i].size(); j < len; j++) {
-						matrix.set(vec[i][j], i + 1, j + 1);
+						matrix.set(vec[i][j], i, j);
 					}
 				}
 

@@ -161,7 +161,7 @@
 
         this->vals = NULL;
         this->cols = NULL;
-        this->rows = new std::vector<size_t>(rows + 1, 1);
+        this->rows = new std::vector<size_t>(rows + 1, 0);
     }
 
 
@@ -202,7 +202,7 @@
 
         size_t currCol;
 
-        for (size_t pos = (*(this->rows))[row - 1] - 1; pos < (*(this->rows))[row] - 1; ++pos) {
+        for (size_t pos = (*(this->rows))[row]; pos < (*(this->rows))[row + 1]; ++pos) {
             currCol = (*(this->cols))[pos];
 
             if (currCol == col) {
@@ -222,10 +222,10 @@
     {
         this->validateCoordinates(row, col);
 
-        size_t pos = (*(this->rows))[row - 1] - 1;
-        size_t currCol = 0;
+        size_t pos = (*(this->rows))[row];
+        size_t currCol = -1;
 
-        for (; pos < (*(this->rows))[row] - 1; pos++) {
+        for (; pos < (*(this->rows))[row + 1]; pos++) {
             currCol = (*(this->cols))[pos];
 
             if (currCol >= col) {
@@ -264,7 +264,7 @@
             for (size_t i = 0; i < this->m; i++) {
                 T sum = T();
                 for (size_t j = (*(this->rows))[i]; j < (*(this->rows))[i + 1]; j++) {
-                    sum = sum + (*(this->vals))[j - 1] * x[(*(this->cols))[j - 1] - 1];
+                    sum = sum + (*(this->vals))[j] * x[(*(this->cols))[j]];
                 }
 
                 result[i] = sum;
@@ -296,11 +296,11 @@
         // TODO: more efficient?
         // @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
 
-        for (int i = 1; i <= this->m; i++) {
-            for (int j = 1; j <= m.n; j++) {
+        for (size_t i = 0; i < this->m; i++) {
+            for (size_t j = 0; j < m.n; j++) {
                 a = T();
 
-                for (int k = 1; k <= this->n; k++) {
+                for (size_t k = 0; k < this->n; k++) {
                     a = a + this->get(i, k) * m.get(k, j);
                 }
 
@@ -331,8 +331,8 @@
         // TODO: more efficient?
         // @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
 
-        for (int i = 1; i <= this->m; i++) {
-            for (int j = 1; j <= this->n; j++) {
+        for (size_t i = 0; i < this->m; i++) {
+            for (size_t j = 0; j < this->n; j++) {
                 result.set(this->get(i, j) + m.get(i, j), i, j);
             }
         }
@@ -360,8 +360,8 @@
         // TODO: more efficient?
         // @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
 
-        for (int i = 1; i <= this->m; i++) {
-            for (int j = 1; j <= this->n; j++) {
+        for (size_t i = 0; i < this->m; i++) {
+            for (size_t j = 0; j < this->n; j++) {
                 result.set(this->get(i, j) - m.get(i, j), i, j);
             }
         }
@@ -382,7 +382,7 @@
     template<typename T>
     void SparseMatrix<T>::validateCoordinates(size_t row, size_t col) const
     {
-        if (row < 1 || col < 1 || row > this->m || col > this->n) {
+        if (row < 0 || col < 0 || row >= this->m || col >= this->n) {
             throw InvalidCoordinatesException("Coordinates out of range.");
         }
     }
@@ -391,7 +391,7 @@
     template<typename T>
     void SparseMatrix<T>::insert(size_t index, size_t row, size_t col, T val)
     {
-        if (this->vals == NULL) {
+        if (this->vals == nullptr) {
             this->vals = new std::vector<T>(1, val);
             this->cols = new std::vector<size_t>(1, col);
 
@@ -400,7 +400,7 @@
             this->cols->insert(this->cols->begin() + index, col);
         }
 
-        for (size_t i = row; i <= this->m; i++) {
+        for (size_t i = row + 1; i <= this->m; i++) {
             (*(this->rows))[i] += 1;
         }
     }
@@ -412,7 +412,7 @@
         this->vals->erase(this->vals->begin() + index);
         this->cols->erase(this->cols->begin() + index);
 
-        for (size_t i = row; i <= this->m; i++) {
+        for (size_t i = row + 1; i <= this->m; i++) {
             (*(this->rows))[i] -= 1;
         }
     }
@@ -441,16 +441,16 @@
     template<typename T>
     std::ostream & operator << (std::ostream & os, const SparseMatrix<T> & matrix)
     {
-        for (int i = 1; i <= matrix.m; i++) {
-            for (int j = 1; j <= matrix.n; j++) {
-                if (j != 1) {
+        for (size_t i = 0; i < matrix.m; i++) {
+            for (size_t j = 0; j < matrix.n; j++) {
+                if (j != 0) {
                     os << " ";
                 }
 
                 os << matrix.get(i, j);
             }
 
-            if (i < matrix.m) {
+            if (i < matrix.m - 1) {
                 os << std::endl;
             }
         }
