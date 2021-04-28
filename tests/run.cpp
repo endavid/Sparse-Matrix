@@ -28,6 +28,7 @@ void testSubtractionFail2();
 void testSubtractionFail3();
 void testGettersAndSetters();
 void testInternalStorage();
+void testColumnMatrix();
 void testOutput();
 void testVectorMultiplication();
 void testMatricesMultiplication();
@@ -57,6 +58,7 @@ int main(int argc, char ** argv)
 		testSubtractionFail3();
 		testGettersAndSetters();
 		testInternalStorage();
+        testColumnMatrix();
 		testOutput();
 		testVectorMultiplication();
 		testMatricesMultiplication();

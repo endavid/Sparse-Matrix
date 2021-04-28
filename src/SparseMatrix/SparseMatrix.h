@@ -45,6 +45,8 @@
 
 				T get(size_t row, size_t col) const;
 				SparseMatrix & set(T val, size_t row, size_t col);
+                SparseMatrix<T> getColumn(size_t col);
+                SparseMatrix<T> getColumnTransposed(size_t col);
 
 
 				// === OPERATIONS ==============================================
@@ -135,7 +137,7 @@
         this->n = matrix.n;
         this->rows = new std::vector<size_t>(*(matrix.rows));
 
-        if (matrix.vals != NULL) {
+        if (matrix.vals != nullptr) {
             this->cols = new std::vector<size_t>(*(matrix.cols));
             this->vals = new std::vector<T>(*(matrix.vals));
         }
@@ -159,8 +161,8 @@
         this->m = rows;
         this->n = columns;
 
-        this->vals = NULL;
-        this->cols = NULL;
+        this->vals = nullptr;
+        this->cols = nullptr;
         this->rows = new std::vector<size_t>(rows + 1, 0);
     }
 
@@ -168,7 +170,7 @@
     template<typename T>
     void SparseMatrix<T>::destruct(void)
     {
-        if (this->vals != NULL) {
+        if (this->vals != nullptr) {
             delete this->vals;
             delete this->cols;
         }
@@ -248,6 +250,45 @@
         return *this;
     }
 
+    template<typename T>
+    SparseMatrix<T> SparseMatrix<T>::getColumn(size_t col)
+    {
+        this->validateCoordinates(0, col);
+        SparseMatrix<T> outM(this->m, 1);
+
+        if (this->vals != nullptr) { // only if any value set
+            for (size_t i = 0; i < this->m; i++) {
+                for (size_t pos = (*(this->rows))[i]; pos < (*(this->rows))[i + 1]; pos++) {
+                    size_t j = (*(this->cols))[pos];
+                    if (col == j) {
+                        auto val = (*(this->vals))[pos];
+                        outM.set(val, i, 0);
+                    }
+                }
+            }
+        }
+        return outM;
+    }
+    
+    template<typename T>
+    SparseMatrix<T> SparseMatrix<T>::getColumnTransposed(size_t col)
+    {
+        this->validateCoordinates(0, col);
+        SparseMatrix<T> outM(1, this->m);
+
+        if (this->vals != nullptr) { // only if any value set
+            for (size_t i = 0; i < this->m; i++) {
+                for (size_t pos = (*(this->rows))[i]; pos < (*(this->rows))[i + 1]; pos++) {
+                    size_t j = (*(this->cols))[pos];
+                    if (col == j) {
+                        auto val = (*(this->vals))[pos];
+                        outM.set(val, 0, i);
+                    }
+                }
+            }
+        }
+        return outM;
+    }
 
     // === OPERATIONS ==============================================
 
@@ -260,7 +301,7 @@
 
         std::vector<T> result(this->m, T());
 
-        if (this->vals != NULL) { // only if any value set
+        if (this->vals != nullptr) { // only if any value set
             for (size_t i = 0; i < this->m; i++) {
                 T sum = T();
                 for (size_t j = (*(this->rows))[i]; j < (*(this->rows))[i + 1]; j++) {
@@ -423,10 +464,10 @@
     template<typename T>
     bool operator == (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
     {
-        return ((a.vals == NULL && b.vals == NULL)
-                    || (a.vals != NULL && b.vals != NULL && *(a.vals) == *(b.vals)))
-                && ((a.cols == NULL && b.cols == NULL)
-                    || (a.cols != NULL && b.cols != NULL && *(a.cols) == *(b.cols)))
+        return ((a.vals == nullptr && b.vals == nullptr)
+                    || (a.vals != nullptr && b.vals != nullptr && *(a.vals) == *(b.vals)))
+                && ((a.cols == nullptr && b.cols == nullptr)
+                    || (a.cols != nullptr && b.cols != nullptr && *(a.cols) == *(b.cols)))
                 && *(a.rows) == *(b.rows);
     }
 

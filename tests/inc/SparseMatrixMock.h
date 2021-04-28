@@ -25,6 +25,11 @@
 
 		public:
 
+            SparseMatrixMock(const Sparse::SparseMatrix<T>& m)
+            : Sparse::SparseMatrix<T>(m.getRowCount(), m.getColumnCount())
+            {
+                Sparse::SparseMatrix<T>::deepCopy(m);
+            }
 			SparseMatrixMock(size_t n) : Sparse::SparseMatrix<T>(n)
 			{}
 

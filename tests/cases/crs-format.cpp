@@ -113,3 +113,54 @@ void testInternalStorage(void)
 
 	std::cout << " OK" << std::endl;
 }
+
+void testColumnMatrix()
+{
+    std::cout << "column matrix..." << std::flush;
+
+    /*
+     [ 1  0 4 5 ]
+     [ 2 -1 0 0 ]
+     [ 0  0 3 2 ]
+     */
+    SparseMatrixMock<int> m1(3, 4);
+    m1.set(1, 0, 0)
+        .set(4, 0, 2)
+        .set(5, 0, 3)
+        .set(2, 1, 0)
+        .set(-1, 1, 1)
+        .set(3, 2, 2)
+        .set(2, 2, 3);
+    
+    SparseMatrixMock<int> c2(m1.getColumn(2));
+    
+    std::vector<int> values2 { 4, 3 };
+    assertEquals<std::vector<int> >(values2, *(c2.getValues()), "Incorrect internal values storage");
+    std::vector<size_t> rowPointers2 { 0, 1, 1, 2 };
+    assertEquals<std::vector<size_t> >(rowPointers2, *(c2.getRowPointers()), "Incorrect internal row pointers");
+    std::vector<size_t> columnPointers2 { 0, 0 };
+    assertEquals<std::vector<size_t> >(columnPointers2, *(c2.getColumnPointers()), "Incorrect internal column pointers");
+
+    // [ 4 0 3 ]
+    SparseMatrixMock<int> c2t(m1.getColumnTransposed(2));
+    
+    assertEquals<std::vector<int> >(values2, *(c2t.getValues()), "Incorrect internal values storage");
+    std::vector<size_t> rowPointers2t { 0, 2 };
+    assertEquals<std::vector<size_t> >(rowPointers2t, *(c2t.getRowPointers()), "Incorrect internal row pointers");
+    std::vector<size_t> columnPointers2t { 0, 2 };
+    assertEquals<std::vector<size_t> >(columnPointers2t, *(c2t.getColumnPointers()), "Incorrect internal column pointers");
+    
+    /*
+     [16 0 12]
+     [0  0  0]
+     [12 0  9]
+     */
+    SparseMatrixMock<int> xx(c2 * c2t);
+    std::vector<int> valuesxx { 16, 12, 12, 9 };
+    assertEquals<std::vector<int> >(valuesxx, *(xx.getValues()), "Incorrect internal values storage");
+    std::vector<size_t> rowPointersxx { 0, 2, 2, 4 };
+    assertEquals<std::vector<size_t> >(rowPointersxx, *(xx.getRowPointers()), "Incorrect internal row pointers");
+    std::vector<size_t> columnPointersxx { 0, 2, 0, 2 };
+    assertEquals<std::vector<size_t> >(columnPointersxx, *(xx.getColumnPointers()), "Incorrect internal column pointers");
+
+}
