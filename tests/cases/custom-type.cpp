@@ -110,8 +110,8 @@ void testElementTypes(void)
 
 	Sparse::SparseMatrix<person> product = a.multiply(c);
 
-	for (int i = 1, rows = product.getRowCount(); i <= rows; i++) {
-		for (int j = 1, cols = product.getColumnCount(); j <= cols; j++) {
+	for (size_t i = 1, rows = product.getRowCount(); i <= rows; i++) {
+		for (size_t j = 1, cols = product.getColumnCount(); j <= cols; j++) {
 			person value = product.get(i, j);
 
 			if (i == 3 && j == 3) {

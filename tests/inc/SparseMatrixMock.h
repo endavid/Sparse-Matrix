@@ -25,11 +25,11 @@
 
 		public:
 
-			SparseMatrixMock(int n) : Sparse::SparseMatrix<T>(n)
+			SparseMatrixMock(size_t n) : Sparse::SparseMatrix<T>(n)
 			{}
 
 
-			SparseMatrixMock(int rows, int columns) : Sparse::SparseMatrix<T>(rows, columns)
+			SparseMatrixMock(size_t rows, size_t columns) : Sparse::SparseMatrix<T>(rows, columns)
 			{}
 
 
@@ -41,14 +41,14 @@
 
 
 			/** @return Column pointers */
-			std::vector<int> * getColumnPointers(void)
+			std::vector<size_t> * getColumnPointers(void)
 			{
 				return this->cols;
 			}
 
 
 			/** @return Row pointers */
-			std::vector<int> * getRowPointers(void)
+			std::vector<size_t> * getRowPointers(void)
 			{
 				return this->rows;
 			}
@@ -58,7 +58,6 @@
 			 * Sends internal storage info to given output stream
 			 *
 			 * @param  os output stream
-			 * @return void
 			 */
 			void printInfo(std::ostream & os) const
 			{
@@ -121,8 +120,8 @@
 			{
 				SparseMatrixMock<T> matrix(vec.size(), vec[0].size());
 
-				for (int i = 0, len = vec.size(); i < len; i++) {
-					for (int j = 0, len = vec[i].size(); j < len; j++) {
+				for (size_t i = 0, len = vec.size(); i < len; i++) {
+					for (size_t j = 0, len = vec[i].size(); j < len; j++) {
 						matrix.set(vec[i][j], i + 1, j + 1);
 					}
 				}

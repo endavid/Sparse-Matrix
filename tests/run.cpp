@@ -37,7 +37,7 @@ void testElementTypes();
 
 int main(int argc, char ** argv)
 {
-	srand(time(NULL)); // used at random matrices / vectors generating
+    srand(static_cast<unsigned int>(time(nullptr))); // used at random matrices / vectors generating
 
 	try {
 

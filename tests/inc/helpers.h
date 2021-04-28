@@ -49,13 +49,13 @@
 	template<typename T>
 	std::vector<std::vector<T> > addMatrices(const std::vector<std::vector<T> > & a, const std::vector<std::vector<T> > & b)
 	{
-		int rows = a.size();
-		int cols = a.front().size();
+        size_t rows = a.size();
+        size_t cols = a.front().size();
 
-		std::vector<std::vector<T> > result(rows, std::vector<int>(cols, 0));
+		std::vector<std::vector<T> > result(rows, std::vector<T>(cols, 0));
 
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
+		for (size_t i = 0; i < rows; i++) {
+			for (size_t j = 0; j < cols; j++) {
 				result[i][j] = a[i][j] + b[i][j];
 			}
 		}
@@ -67,13 +67,13 @@
 	template<typename T>
 	std::vector<std::vector<T> > subtractMatrices(const std::vector<std::vector<T> > & a, const std::vector<std::vector<T> > & b)
 	{
-		int rows = a.size();
-		int cols = a.front().size();
+        size_t rows = a.size();
+        size_t cols = a.front().size();
 
-		std::vector<std::vector<T> > result(rows, std::vector<int>(cols, 0));
+		std::vector<std::vector<T> > result(rows, std::vector<T>(cols, 0));
 
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
+		for (size_t i = 0; i < rows; i++) {
+			for (size_t j = 0; j < cols; j++) {
 				result[i][j] = a[i][j] - b[i][j];
 			}
 		}
@@ -85,13 +85,13 @@
 	template<typename T>
 	std::vector<T> multiplyMatrixByVector(const std::vector<std::vector<T> > & m, const std::vector<T> & v)
 	{
-		int rows = m.size();
-		int cols = v.size();
+        size_t rows = m.size();
+        size_t cols = v.size();
 
 		std::vector<T> result(rows, 0);
 
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
+		for (size_t i = 0; i < rows; i++) {
+			for (size_t j = 0; j < cols; j++) {
 				result[i] += m[i][j] * v[j];
 			}
 		}
@@ -103,17 +103,17 @@
 	template<typename T>
 	std::vector<std::vector<T> > multiplyMatrices(const std::vector<std::vector<T> > & a, const std::vector<std::vector<T> > & b)
 	{
-		int rowsA = a.size();
-		int colsA = a.front().size();
-		int colsB = b.front().size();
+        size_t rowsA = a.size();
+        size_t colsA = a.front().size();
+        size_t colsB = b.front().size();
 
-		std::vector<std::vector<T> > result(rowsA, std::vector<int>(colsB, 0));
+		std::vector<std::vector<T> > result(rowsA, std::vector<T>(colsB, 0));
 
-		for (int i = 0; i < rowsA; i++) {
-			for (int j = 0; j < colsB; j++) {
+		for (size_t i = 0; i < rowsA; i++) {
+			for (size_t j = 0; j < colsB; j++) {
 				result[i][j] = 0;
 
-				for (int k = 0; k < colsA; k++) {
+				for (size_t k = 0; k < colsA; k++) {
 					result[i][j] += a[i][k] * b[k][j];
 				}
 			}
@@ -130,7 +130,7 @@
 	{
 		os << "[";
 
-		for (int i = 0, len = v.size(); i < len; i++) {
+		for (size_t i = 0, len = v.size(); i < len; i++) {
 			if (i != 0) {
 				os << ", ";
 			}
