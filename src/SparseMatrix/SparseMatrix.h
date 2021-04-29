@@ -63,6 +63,8 @@
 				SparseMatrix<T> subtract(const SparseMatrix<T> & m) const;
 				SparseMatrix<T> operator - (const SparseMatrix<T> & m) const;
 
+                void addSubmatrix(const SparseMatrix<T> & m);
+
 
 				// === FRIEND FUNCTIONS =========================================
 
@@ -388,6 +390,19 @@
         return this->add(m);
     }
 
+    template<typename T>
+    void SparseMatrix<T>::addSubmatrix(const SparseMatrix<T> & m)
+    {
+        if (this->m < m.m || this->n < m.n) {
+            throw InvalidDimensionsException("Cannot add submatrix with bigger dimension.");
+        }
+
+        for (size_t i = 0; i < m.m; i++) {
+            for (size_t j = 0; j < m.n; j++) {
+                this->set(this->get(i, j) + m.get(i, j), i, j);
+            }
+        }
+    }
 
     template<typename T>
     SparseMatrix<T> SparseMatrix<T>::subtract(const SparseMatrix<T> & m) const

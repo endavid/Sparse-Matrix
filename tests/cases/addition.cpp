@@ -91,3 +91,48 @@ void testAddition(void)
 
 	std::cout << " OK" << std::endl;
 }
+
+void testAddSubmatrix()
+{
+    /*
+     [ 2 0 2 0 .... 2 ]
+     [ 0 ...        0 ]
+     [ 0 ...        0 ]
+     [ 2 0 2 0 .... 2 ]
+     [ ...            ]
+     */
+    SparseMatrixMock<int> matrix(6, 12);
+    for (size_t i = 0; i < matrix.getRowCount(); i+=3)
+    {
+        for (size_t j = 0; j < matrix.getColumnCount(); j+=2)
+        {
+            matrix.set(2, i, j);
+        }
+    }
+    SparseMatrixMock<int> c2(matrix.getColumn(2));
+    std::vector<std::vector<int> > c2expected = {
+        {2}, {0}, {0}, {2}, {0}, {0}
+    };
+    assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(c2, c2expected, "Unexpected column matrix");
+    SparseMatrixMock<int> xx(c2 * matrix.getColumnTransposed(2));
+    std::vector<std::vector<int> > xxexpected = {
+        {4, 0, 0, 4, 0, 0},
+        {0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0},
+        {4, 0, 0, 4, 0, 0},
+        {0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0}
+    };
+    assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(xx, xxexpected, "Unexpected matrix");
+    
+    matrix.addSubmatrix(xx);
+    std::vector<std::vector<int> > expected = {
+        {6, 0, 2, 4, 2, 0, 2, 0, 2, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {6, 0, 2, 4, 2, 0, 2, 0, 2, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    assertEquals<Sparse::SparseMatrix<int>, std::vector<std::vector<int> > >(matrix, expected, "Unexpected matrix");
+}

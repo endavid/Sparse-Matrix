@@ -23,6 +23,7 @@ void testMultiplicationFail2();
 void testAdditionFail1();
 void testAdditionFail2();
 void testAdditionFail3();
+void testAddSubmatrix();
 void testSubtractionFail1();
 void testSubtractionFail2();
 void testSubtractionFail3();
@@ -53,6 +54,7 @@ int main(int argc, char ** argv)
 		testAdditionFail1();
 		testAdditionFail2();
 		testAdditionFail3();
+        testAddSubmatrix();
 		testSubtractionFail1();
 		testSubtractionFail2();
 		testSubtractionFail3();
